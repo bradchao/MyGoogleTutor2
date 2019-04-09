@@ -22,9 +22,6 @@ public class PokerV1 {
                 poker[i] = rand;
                 System.out.println(poker[i]);
             }
-
         }
-
-
     }
 }
