@@ -3,6 +3,7 @@ package tw.brad.gtest2;
 public class Bike {
 	private double speed;
 	
+	
 	Bike(int speed){
 		this.speed = speed;
 	}
