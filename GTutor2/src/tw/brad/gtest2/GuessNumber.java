@@ -8,6 +8,7 @@ public class GuessNumber extends Object {
 		// 1. Create an answer
 		String answer = createAnswer(n);
 		//System.out.println(answer);
+		
 
 		boolean isWinner = false;
 		for (int i=0; i<10; i++) {
