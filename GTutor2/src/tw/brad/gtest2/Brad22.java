@@ -8,6 +8,7 @@ public class Brad22 {
 		s1.upSpeed();
 		s1.upSpeed();
 		System.out.println(s1.getSpeed());
+		s1.m1();
 	}
 
 }

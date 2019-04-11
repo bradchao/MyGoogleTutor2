@@ -1,7 +1,7 @@
 package tw.brad.gtest2;
 
 public class Bike extends Object{
-	private double speed;
+	protected double speed;
 	
 	
 	Bike(){
