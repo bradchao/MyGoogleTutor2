@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class GuessNumber extends Object {
 	public static void main(String[] args) {
-		int n = 3;
+		int n = 4;
 		// 1. Create an answer
 		String answer = createAnswer(n);
 		boolean isWinner = false;
