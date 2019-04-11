@@ -7,18 +7,12 @@ public class GuessNumber extends Object {
 		int n = 3;
 		// 1. Create an answer
 		String answer = createAnswer(n);
-		//System.out.println(answer);
-		
-
 		boolean isWinner = false;
 		for (int i=0; i<10; i++) {
 			String guess = JOptionPane.showInputDialog("Input a number:");
 			if (guess != null) {
 				String result = checkAB(answer, guess);
-				//System.out.println(guess + " => " + result);
-				
 				JOptionPane.showMessageDialog(null, guess + " => " + result);
-				
 				if (result.equals(n + "A0B")) {
 					isWinner = true;
 					break;
@@ -61,12 +55,12 @@ public class GuessNumber extends Object {
 			poker[i] = temp;
 		}
 		
-		String ret = "";
+		StringBuilder sb = new StringBuilder();
 		for (int i=0; i<d; i++) {
-			ret += poker[i];
+			sb.append(poker[i]);
 		}
 		
-		return ret;
+		return sb.toString();
 	}
 	
 	
