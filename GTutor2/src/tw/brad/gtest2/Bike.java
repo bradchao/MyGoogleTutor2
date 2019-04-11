@@ -1,11 +1,17 @@
 package tw.brad.gtest2;
 
-public class Bike {
+public class Bike extends Object{
 	private double speed;
 	
 	
+	Bike(){
+		System.out.println("Bike()");
+	}
+	
 	Bike(int speed){
+		// super();
 		this.speed = speed;
+		System.out.println("Bike(int)");
 	}
 	
 	void upSpeed() {
