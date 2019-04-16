@@ -1,6 +1,6 @@
 package tw.brad.gtest2;
 
-public class Brd13 {
+public class Brad13 {
     public static void main(String[] args){
         int p0, p1, p2, p3, p4, p5, p6;
         p0 = p1 = p2 = p3 = p4 = p5 = p6 = 0;
