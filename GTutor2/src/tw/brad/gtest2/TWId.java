@@ -2,27 +2,45 @@ package tw.brad.gtest2;
 
 public class TWId {
 	private String id;
+	static String letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+	
 	public TWId() {
-		
+		this((int)(Math.random()*2)==0);
 	}
 	public TWId(boolean gender) {
-		
+		this(gender, (int)(Math.random()*26));
 	}
 	public TWId(int area) {
-		
+		this((int)(Math.random()*2)==0, area);
 	}
 	public TWId(boolean gender, int area) {
-		
+		// super();
+		String temp = letters.substring(area, area+1);
+		temp += gender?"1":"2";
+		for (int i=0; i<7; i++) temp += (int)(Math.random()*10);
+		for (int i=0; i<10; i++) {
+			if (isRightId(temp + i)) {
+				id = temp + i;
+				break;
+			}
+		}
 	}
 	private TWId(String id){
-		
+		this.id = id;
 	}
 	public String getId() {return id;}
 
+	public static TWId createTWId(String id) {
+		TWId temp = null;
+		if (isRightId(id)) {
+			temp = new TWId(id);
+		}
+		return temp;
+	}
+	
 	public static boolean isRightId(String id) {
 		boolean ret = false;
 		if (id.matches("[A-Z][12][0-9]{8}")) {
-			String letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
 			char c0 = id.charAt(0);
 			int n12 = letters.indexOf(c0) + 10;
 			int n1 = n12 / 10;
