@@ -11,6 +11,7 @@ public class Brad31 {
 	static void m1(Brad311 obj) {
 		System.out.println("A");
 		obj.upSpeed();
+		//obj.m2();
 	}
 	static void m1(Brad312 obj) {
 		System.out.println("B");
