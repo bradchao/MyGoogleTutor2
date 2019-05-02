@@ -1,5 +1,6 @@
 package tw.brad.gtest2;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
@@ -12,8 +13,13 @@ public class Brad53 {
 						new FileInputStream("mytest/mydata.dat"))){
 			
 			while (true) {
-				Object obj;
-				obj = oin.readObject();
+				Object obj = null;
+				try {
+					obj = oin.readObject();
+				}catch(EOFException ee) {
+					System.out.println("got it");
+					break;
+				}
 				
 				System.out.println(obj.getClass().getName());
 				

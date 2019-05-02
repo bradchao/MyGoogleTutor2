@@ -30,10 +30,12 @@ public class TWId {
 	}
 	public String getId() {return id;}
 
-	public static TWId createTWId(String id) {
+	public static TWId createTWId(String id) throws Exception {
 		TWId temp = null;
 		if (isRightId(id)) {
 			temp = new TWId(id);
+		}else {
+			throw new Exception();
 		}
 		return temp;
 	}

@@ -11,11 +11,17 @@ public class Brad27 {
 			System.out.println("XX");
 		}
 		
-		TWId id2 = TWId.createTWId("A123456789");
-		if (id2 != null) {
-			System.out.println(id2.getId());
-		}else {
-			System.out.println("xxx");
+//		TWId id2 = TWId.createTWId("A123456789");
+//		if (id2 != null) {
+//			System.out.println(id2.getId());
+//		}else {
+//			System.out.println("xxx");
+//		}
+
+		try {
+			TWId id2 = TWId.createTWId("A123456789");
+		}catch(Exception e) {
+			
 		}
 		
 	}
