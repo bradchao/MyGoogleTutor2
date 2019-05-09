@@ -8,7 +8,7 @@ public class Brad55 {
 
 		try {
 			InetAddress[] ips = InetAddress.getAllByName(
-					"www.google.com");
+					"192.168.3.4");
 			for (InetAddress ip : ips) {
 				System.out.println(ip.getHostAddress());
 			}
