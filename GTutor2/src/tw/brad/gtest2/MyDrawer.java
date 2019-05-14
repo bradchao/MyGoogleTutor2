@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
-	private LinkedList<Point> line = new LinkedList<>();
+	private LinkedList<LinkedList<Point>> lines = new LinkedList<>();
 	
 	public MyDrawer() {
 		setBackground(Color.GREEN);
@@ -21,8 +21,13 @@ public class MyDrawer extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				super.mousePressed(e);
 				int x = e.getX(), y = e.getY();
+				
+				LinkedList<Point> line = new LinkedList<>();
 				Point point = new Point(x, y);
 				line.add(point);
+				
+				lines.add(line);
+				
 				repaint();
 			}
 		});
@@ -31,9 +36,11 @@ public class MyDrawer extends JPanel {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				super.mouseDragged(e);
+				
 				int x = e.getX(), y = e.getY();
 				Point point = new Point(x, y);
-				line.add(point);
+				lines.getLast().add(point);
+				
 				repaint();
 			}
 		});
@@ -49,13 +56,14 @@ public class MyDrawer extends JPanel {
 		g2d.setColor(Color.BLUE);
 		g2d.setStroke(new BasicStroke(4));
 		
-		for (int i=1; i<line.size(); i++) {
-			Point p0 = line.get(i-1);
-			Point p1 = line.get(i);
-			g2d.drawLine(p0.x, p0.y, p1.x, p1.y);
+		for(LinkedList<Point> line : lines) {
+			for (int i=1; i<line.size(); i++) {
+				Point p0 = line.get(i-1);
+				Point p1 = line.get(i);
+				g2d.drawLine(p0.x, p0.y, p1.x, p1.y);
+			}
+			
 		}
-		
-
 	}
 	
 	private class Point {
