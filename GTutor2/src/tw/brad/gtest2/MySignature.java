@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MySignature extends JFrame{
-	private JButton clear, undo, redo, save;
+	private JButton clear, undo, redo, save, saveObj, loadObj;
 	private MyDrawer myDrawer;
 	
 	public MySignature() {
@@ -21,9 +24,11 @@ public class MySignature extends JFrame{
 		undo = new JButton("Undo");
 		redo = new JButton("Redo");
 		save = new JButton("Save");
+		saveObj = new JButton("Save Object");
+		loadObj = new JButton("Load Object");
 		JPanel top = new JPanel(new FlowLayout());
 		top.add(clear);top.add(undo);top.add(redo);
-		top.add(save);
+		top.add(save);top.add(saveObj);top.add(loadObj);
 		add(top, BorderLayout.NORTH);
 		
 		myDrawer = new MyDrawer();
@@ -57,6 +62,36 @@ public class MySignature extends JFrame{
 				myDrawer.redo();
 			}
 		});
+		
+		save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					myDrawer.saveImage();
+					JOptionPane.showMessageDialog(MySignature.this, 
+							"Save JPEG OK");
+				}catch(Exception e2) {
+					JOptionPane.showMessageDialog(MySignature.this, 
+							"Save JPEG Fail");
+				}
+			}
+		});
+		
+		saveObj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myDrawer.saveObject();
+			}
+		});
+		
+		loadObj.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myDrawer.loadObject();
+			}
+		});
+		
 	}
 	
 	

@@ -6,8 +6,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
@@ -89,7 +97,45 @@ public class MyDrawer extends JPanel {
 		}
 	}
 	
-	private class Point {
+	public void saveImage() throws Exception {
+		BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = image.createGraphics();
+		paint(g2);
+		ImageIO.write(image, "jpeg", new File("dir1/brad.jpg"));
+	}
+	
+	public void saveObject() {
+		try {
+			ObjectOutputStream oout = 
+					new ObjectOutputStream(
+							new FileOutputStream("dir1/brad.object"));
+			oout.writeObject(lines);
+			oout.flush();
+			oout.close();
+			System.out.println("ok");
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+	}
+	
+	public void loadObject() {
+		try {
+			ObjectInputStream oin = 
+					new ObjectInputStream(
+							new FileInputStream("dir1/brad.object"));
+			lines = (LinkedList<LinkedList<Point>>)(oin.readObject());
+			oin.close();
+			recycle.clear();
+			
+			repaint();
+			System.out.println("ok2");
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+	}
+	
+	
+	private class Point implements Serializable {
 		int x, y;
 		Point(int x, int y){this.x = x; this.y = y;}
 	}
