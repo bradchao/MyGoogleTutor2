@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class MySignature extends JFrame{
 	private JButton clear, undo, redo, save;
+	private MyDrawer myDrawer;
 	
 	public MySignature() {
 		super("簽名app");
@@ -21,8 +22,10 @@ public class MySignature extends JFrame{
 		JPanel top = new JPanel(new FlowLayout());
 		top.add(clear);top.add(undo);top.add(redo);
 		top.add(save);
-		
 		add(top, BorderLayout.NORTH);
+		
+		myDrawer = new MyDrawer();
+		add(myDrawer, BorderLayout.CENTER);
 		
 		setSize(640, 480);
 		setVisible(true);
