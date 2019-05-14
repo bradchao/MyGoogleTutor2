@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
 	private LinkedList<LinkedList<Point>> lines = new LinkedList<>();
+	private LinkedList<LinkedList<Point>> recycle = new LinkedList<>();
 	
 	public MyDrawer() {
 		setBackground(Color.GREEN);
@@ -21,6 +22,8 @@ public class MyDrawer extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				super.mousePressed(e);
 				int x = e.getX(), y = e.getY();
+				
+				recycle.clear();
 				
 				LinkedList<Point> line = new LinkedList<>();
 				Point point = new Point(x, y);
@@ -63,6 +66,26 @@ public class MyDrawer extends JPanel {
 				g2d.drawLine(p0.x, p0.y, p1.x, p1.y);
 			}
 			
+		}
+	}
+	
+	public void clear() {
+		lines.clear();
+		recycle.clear();
+		repaint();
+	}
+	
+	public void undo() {
+		if (lines.size()>0) {
+			recycle.add(lines.removeLast());
+			repaint();
+		}
+	}
+
+	public void redo() {
+		if (recycle.size()>0) {
+			lines.add(recycle.removeLast());
+			repaint();
 		}
 	}
 	
