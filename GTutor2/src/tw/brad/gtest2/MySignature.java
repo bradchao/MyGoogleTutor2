@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class MySignature extends JFrame{
 	private JButton clear, undo, redo, save, saveObj, loadObj;
-	private MyDrawer myDrawer;
+	private MyDrawerV2 myDrawer;
 	
 	public MySignature() {
 		super("簽名app");
@@ -31,7 +31,7 @@ public class MySignature extends JFrame{
 		top.add(save);top.add(saveObj);top.add(loadObj);
 		add(top, BorderLayout.NORTH);
 		
-		myDrawer = new MyDrawer();
+		myDrawer = new MyDrawerV2();
 		add(myDrawer, BorderLayout.CENTER);
 		
 		initFunction();
