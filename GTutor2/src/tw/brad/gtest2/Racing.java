@@ -12,6 +12,7 @@ public class Racing extends JFrame {
 	private JButton go;
 	private JLabel[] lanes = new JLabel[8];
 	private Car[] cars = new Car[8];
+	private int rank;
 	
 	public Racing() {
 		super("賽車");
@@ -38,11 +39,22 @@ public class Racing extends JFrame {
 	}
 	
 	private void go() {
+		rank = 0;
+		for (int i=0; i<lanes.length; i++) {
+			lanes[i].setText((i+1) + ". ");
+		}
+		
 		for (int i=0; i<cars.length; i++) {
 			cars[i] = new Car(i);
 			cars[i].start();
 		}
 		
+	}
+	
+	private void stopRound() {
+		for (int i=0; i<cars.length; i++) {
+			cars[i].interrupt();;
+		}
 	}
 	
 	private class Car extends Thread {
@@ -53,10 +65,16 @@ public class Racing extends JFrame {
 		public void run() {
 			for (int i=0; i<100; i++) {
 				lanes[lane].setText(lanes[lane].getText() + ">");
+				
+				if (i==99) {
+					lanes[lane].setText(lanes[lane].getText() + ++rank);
+					stopRound();
+				}
+				
 				try {
 					Thread.sleep(100 + (int)(Math.random()*300));
 				}catch(Exception e) {
-					
+					break;
 				}
 			}
 		}
