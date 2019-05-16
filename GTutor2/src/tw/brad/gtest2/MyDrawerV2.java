@@ -20,8 +20,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class MyDrawerV2 extends JPanel {
-	private LinkedList<LinkedList<HashMap<String,Integer>>> lines = new LinkedList<>();
-	private LinkedList<LinkedList<HashMap<String,Integer>>> recycle = new LinkedList<>();
+	private LinkedList<LinkedList<HashMap<String,Integer>>> lines = 
+			new LinkedList<>();
+	private LinkedList<LinkedList<HashMap<String,Integer>>> recycle = 
+			new LinkedList<>();
 	
 	public MyDrawerV2() {
 		setBackground(Color.GREEN);
