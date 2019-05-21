@@ -3,8 +3,11 @@ package tw.brad.gtest2;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,17 +32,17 @@ public class Brad70 extends JFrame {
 	private class MyPanel extends JPanel {
 		private Timer timer;
 		private String[] ballImags = {"imgs/ball.png","imgs/ball1.png","imgs/ball2.png"};
-		private Ball ball;
 		private int viewW, viewH;
 		private boolean isInit;	// false
 		private BufferedImage[] bufImags = new BufferedImage[ballImags.length];
+		private LinkedList<Ball> balls;
+		
 		
 		MyPanel(){
+			balls = new LinkedList<>();
 			timer = new Timer();
 			timer.schedule(new RefreshTask(), 0, 60);
 			
-			ball = new Ball(10,10);
-			timer.schedule(ball, 1000, 60);
 			
 			for (int i=0; i<ballImags.length; i++) {
 				try {
@@ -51,8 +54,22 @@ public class Brad70 extends JFrame {
 				
 			}
 
-			
+			addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					super.mousePressed(e);
+					addBall(e.getX(), e.getY());
+				}
+			});
 		}
+		
+		private void addBall(int x, int y) {
+			Ball ball = new Ball(x,y);
+			balls.add(ball);
+			timer.schedule(ball, 1000, 60);
+
+		}
+		
 		
 		private class Ball extends TimerTask {
 			private int x, y, dx, dy;
@@ -100,8 +117,11 @@ public class Brad70 extends JFrame {
 			
 			Graphics2D g2d = (Graphics2D)g;
 			
-			g2d.drawImage(bufImags[ball.getImage()], ball.getX(),ball.getY(),null);
-				
+			for (Ball ball : balls) {
+				g2d.drawImage(bufImags[ball.getImage()], 
+						ball.getX(),ball.getY(),null);
+			}
+					
 		}
 	}
 	
