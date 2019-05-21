@@ -28,38 +28,73 @@ public class Brad70 extends JFrame {
 	
 	private class MyPanel extends JPanel {
 		private Timer timer;
-		private int x, y;
+		private String[] ballImags = {"imgs/ball.png","imgs/ball1.png","imgs/ball2.png"};
+		private Ball ball;
+		private int viewW, viewH;
+		private boolean isInit;	// false
+		private BufferedImage[] bufImags = new BufferedImage[ballImags.length];
 		
 		MyPanel(){
 			timer = new Timer();
+			timer.schedule(new RefreshTask(), 0, 60);
 			
-			timer.schedule(new MyBallTask(), 1*1000, 200);
+			ball = new Ball(0,0);
+			timer.schedule(ball, 1000, 100);
+			
+			for (int i=0; i<ballImags.length; i++) {
+				try {
+					bufImags[i] = 
+							ImageIO.read(new File(ballImags[i]));
+				}catch(Exception e) {
+					
+				}
+				
+			}
+
+			
 		}
 		
-		private class MyBallTask extends TimerTask {
+		private class Ball extends TimerTask {
+			private int x, y, dx, dy;
+			private int img;
+			Ball(int x, int y){
+				this.x = x; this.y = y;
+				img = (int)(Math.random()*3);
+				dx = dy = 10;
+			}
 			@Override
 			public void run() {
-				x += 10; y+= 10;
+				x += dx; y += dy;
+			}
+			
+			int getX() {return x;}
+			int getY() {return y;}
+			int getImage() {return img;}
+		}
+		
+		private class RefreshTask extends TimerTask {
+			@Override
+			public void run() {
 				repaint();
 			}
+		}
+		
+		private void init() {
+			viewW = getWidth();
+			viewH = getHeight();
+			//System.out.println(viewW + " x " + viewH);
+			//isInit = true;
 		}
 		
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			if (!isInit) init();
 			
 			Graphics2D g2d = (Graphics2D)g;
 			
-			try {
-				BufferedImage ball = 
-						ImageIO.read(new File("imgs/ball.png"));
+			g2d.drawImage(bufImags[ball.getImage()], ball.getX(),ball.getY(),null);
 				
-				g2d.drawImage(ball,x,y,null);
-				
-			}catch(Exception e) {
-				System.out.println(e.toString());
-			}
-			
 		}
 	}
 	
