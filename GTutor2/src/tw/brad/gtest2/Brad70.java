@@ -38,8 +38,8 @@ public class Brad70 extends JFrame {
 			timer = new Timer();
 			timer.schedule(new RefreshTask(), 0, 60);
 			
-			ball = new Ball(0,0);
-			timer.schedule(ball, 1000, 100);
+			ball = new Ball(10,10);
+			timer.schedule(ball, 1000, 60);
 			
 			for (int i=0; i<ballImags.length; i++) {
 				try {
@@ -64,6 +64,13 @@ public class Brad70 extends JFrame {
 			}
 			@Override
 			public void run() {
+				if (x<=0 || x + bufImags[img].getWidth() >= viewW) {
+					dx *= -1;
+				}
+				if (y<=0 || y + bufImags[img].getHeight() >= viewH) {
+					dy *= -1;
+				}
+				
 				x += dx; y += dy;
 			}
 			
