@@ -75,8 +75,11 @@ public class Brad70 extends JFrame {
 			private int x, y, dx, dy;
 			private int img;
 			Ball(int x, int y){
-				this.x = x; this.y = y;
 				img = (int)(Math.random()*3);
+				
+				this.x = (int)(x - bufImags[img].getWidth()/2.0);
+				this.y = (int)(y - bufImags[img].getHeight()/2.0);
+				
 				dx = dy = 10;
 			}
 			@Override
